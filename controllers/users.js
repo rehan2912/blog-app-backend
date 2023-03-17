@@ -5,7 +5,20 @@ export const getUser = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id);
-    res.status(200).json(user);
+    const userWithoutPassword = { 
+      _id: user._id,
+      userName: user.userName,
+      email: user.email,
+      picturePath: user.picturePath,
+      friends: user.friends,
+      location: user.location,
+      occupation: user.occupation,
+      viewedProfile: user.viewedProfile,
+      impressions: user.impressions,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    }
+    res.status(200).json(userWithoutPassword);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
